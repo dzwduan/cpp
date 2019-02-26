@@ -3,7 +3,7 @@
 #include <string.h>
 #include <assert.h>
 #include <time.h>
-#include <sys/time.h>
+#include <sys/timeb.h>
 #include "matrix.h"
 #include "image.h"
 #include "test.h"

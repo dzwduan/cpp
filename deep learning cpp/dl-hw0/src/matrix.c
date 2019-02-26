@@ -108,11 +108,25 @@ matrix matmul(matrix a, matrix b)
 {
     matrix c = make_matrix(a.rows, b.cols);
     // TODO: 1.4 - Implement matrix multiplication. Make sure it's fast!
-    
-
+    int row=a.rows;
+    int col=b.cols;
+    assert(a.cols==b.rows);
+    int i,j,k;
+    float sum;
+     for(i = 0; i < row; ++i){
+        for(j = 0; j < col; ++j){
+            sum=0.;
+            for(k=0;k<a.cols;++k){
+                sum+=a.data[i*row+k]*b.data[k*b.rows+j];
+            }
+            c.data[i*row+col]=sum;
+        }
+     }
 
     return c;
 }
+
+
 
 // In-place, element-wise scaling of matrix
 // float s: scaling factor
@@ -162,6 +176,7 @@ matrix augment_matrix(matrix m)
         }
     }
     for(j = 0; j < m.rows; ++j){
+        //右半单位矩阵
         c.data[j*c.cols + j+m.cols] = 1;
     }
     return c;
@@ -173,6 +188,7 @@ matrix matrix_invert(matrix m)
     int i, j, k;
     //print_matrix(m);
     matrix none = {0};
+    //只有方阵才有逆矩阵
     if(m.rows != m.cols){
         fprintf(stderr, "Matrix not square\n");
         return none;
@@ -189,7 +205,7 @@ matrix matrix_invert(matrix m)
         float p = 0.;
         int index = -1;
         for(i = k; i < c.rows; ++i){
-            float val = fabs(cdata[i][k]);
+            float val = fabs(cdata[i][k]); //绝对值
             if(val > p){
                 p = val;
                 index = i;

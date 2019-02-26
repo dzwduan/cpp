@@ -14,21 +14,35 @@ void activate_matrix(matrix m, ACTIVATION a)
         for(j = 0; j < m.cols; ++j){
             double x = m.data[i*m.cols + j];
             if(a == LOGISTIC){
-                // TODO
+                x = logistic(x);
             } else if (a == RELU){
-                // TODO
+                x = relu(x);
             } else if (a == LRELU){
-                // TODO
+                x = lrelu(x,0.001);
             } else if (a == SOFTMAX){
-                // TODO
+                m.data[i*m.cols + j]=exp(m.data[i*m.cols + j];);
             }
             sum += m.data[i*m.cols + j];
         }
         if (a == SOFTMAX) {
             // TODO: have to normalize by sum if we are using SOFTMAX
+            return m.data[i*m.cols + j]/sum;
         }
     }
 }
+
+double logistic(double x){
+    return 1./(1.+exp(x));
+}
+
+double relu(double x){
+    return x>0?x:0;
+}
+
+double lrelu(double x,double lambd){
+    return x>0?x:(lambd*x);
+}
+
 
 // Calculates the gradient of an activation function and multiplies it into
 // the delta for a layer
@@ -42,6 +56,7 @@ void gradient_matrix(matrix m, ACTIVATION a, matrix d)
         for(j = 0; j < m.cols; ++j){
             double x = m.data[i*m.cols + j];
             // TODO: multiply the correct element of d by the gradient
+            
         }
     }
 }
