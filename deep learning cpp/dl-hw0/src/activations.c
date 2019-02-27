@@ -56,7 +56,15 @@ void gradient_matrix(matrix m, ACTIVATION a, matrix d)
         for(j = 0; j < m.cols; ++j){
             double x = m.data[i*m.cols + j];
             // TODO: multiply the correct element of d by the gradient
-            
+             if(a == LOGISTIC){
+              return logistic(x)*(1-logistic(x))
+            } else if (a == RELU){
+               
+            } else if (a == LRELU){
+           
+            } else if (a == SOFTMAX){
+               
+            }
         }
     }
 }
