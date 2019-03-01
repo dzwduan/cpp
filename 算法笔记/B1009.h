@@ -9,7 +9,7 @@ void reverse_str() {
 	getline(cin,str);  //×¢ÒâÓÃ·¨
 	vector<string> ss;
 	string tmp="";
-	for (int i = 0; i < str.size(); ++i) {
+	for (auto i = 0; i < str.size(); ++i) {
 		if (str[i] == '\n') {
 			return;
 		}

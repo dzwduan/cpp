@@ -7,7 +7,7 @@ using namespace std;
 void judge() {
 	string ss;
 	cin >> ss;
-	for (int i = 0; i < ss.length() / 2; ++i) {
+	for (auto i = 0; i < ss.length() / 2; ++i) {
 		if (ss[i] != ss[ss.length() - 1 - i]) {
 			cout << "NO";
 			return;

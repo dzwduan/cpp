@@ -1,5 +1,7 @@
 #pragma once
 #include <iostream>
+#include <algorithm>
+#include <cstring>
 using namespace std;
 //选择排序
 //每趟从待排序队列中选取最小项，与待排序队列的第一个交换
@@ -50,6 +52,60 @@ void insert_sort(int A[], int size) {
 }
 
 
+//A1025 below
+//输出格式 准考证号 排名 考场号 考场排名
+struct Student
+{
+	char id[15];
+	int score;
+	int location_number;
+	int local_rank;
+
+}stu[30010];
+
+bool cmp(Student a, Student b) {
+	if (a.score != b.score)
+		return a.score > b.score;
+	else
+		return strcmp(a.id,b.id)<0;  //一开始直接用的<两个报错
+}
+
+void stu_sort() {
+	int num=0; //考生数
+	int k;//考场数
+	cin >> k;
+	for (int i = 0; i < k; ++i) {
+		int location; //考场人数
+		cin >> location;
+		for (int j = 0; j < location; ++j) {
+			cin >> stu[num].id >> stu[num].score;
+			stu[num].location_number = i + 1;
+			num++;
+		}
+		sort(stu + num - location, stu + num, cmp); //考场内排名
+		stu[num - location].local_rank = 1;
+		for (int a = num - location + 1; a < num; ++a) {
+			if (stu[a].score == stu[a - 1].score) {
+				stu[a].local_rank = stu[a - 1].local_rank;
+			}
+			else {
+				stu[a].local_rank = a + 1 - (num - location);
+			}
+		}
+	}
+	//再求总排名
+	sort(stu, stu + num, cmp);
+	int rank = 1;
+	cout << num << endl;
+	for (int a = 0; a < num; ++a) {
+		if (a > 0 && stu[a].score != stu[a - 1].score) {
+			rank =a + 1;
+		}
+		
+		cout << stu[a].id << " "<<rank<<" "<<stu[a].location_number<<" "<<stu[a].local_rank<<endl;
+	}
+
+}
 
 
 
